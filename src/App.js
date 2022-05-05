@@ -24,14 +24,10 @@ function App() {
     fetchPosts();
   }, []);
 
-  const findPostById = (id) => {
-    return allPosts[id];
-  };
-
   const handleOnSave = async (post) => {
     const res = await createPost(post);
     setAllPosts([...allPosts, post]);
-    navigate("/", {replace: true});
+    navigate("/", { replace: true });
   };
 
   const handleOnEdit = async (postId, post) => {
@@ -40,14 +36,14 @@ function App() {
       item._id === res._id ? post : item
     );
     setAllPosts(copyOfPosts);
-    navigate("/", {replace: true});
+    navigate("/", { replace: true });
   };
 
   const onDelete = async (id) => {
     const res = await deletePost(id);
     const copyOfPosts = allPosts.filter((item) => item._id !== id);
     setAllPosts(copyOfPosts);
-    navigate("/", {replace: true});
+    navigate("/", { replace: true });
   };
 
   return (
@@ -69,19 +65,15 @@ function App() {
         <Route path="*" element={<Error />} />
         <Route
           path="create-new-post"
-          element={
-            <CreatePost onSave={handleOnSave} />
-          }
+          element={<CreatePost onSave={handleOnSave} />}
         />
         <Route
           path="post/:postId"
           element={<DetailPostPage onDelete={onDelete} />}
         />
-         <Route
+        <Route
           path="create-new-post/:postId"
-          element={
-            <CreatePost onSave={handleOnEdit} />
-          }
+          element={<CreatePost onSave={handleOnEdit} />}
         />
       </Routes>
     </div>
