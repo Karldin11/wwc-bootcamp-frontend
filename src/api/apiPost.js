@@ -1,4 +1,4 @@
-const URL_SERVER = "http://localhost:8000/post/";
+const URL_SERVER = `${process.env.REACT_APP_API_URL}/post/`;
 
 export const getAllPost = async () => {
   try {
@@ -44,7 +44,7 @@ export const updatePost = async (id, post) => {
 };
 
 export const deletePost = async (id) => {
-  console.log(id)
+  console.log(id);
   try {
     const res = await fetch(URL_SERVER + id, {
       method: "DELETE",
