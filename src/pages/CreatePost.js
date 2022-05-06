@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useParams } from 'react-router-dom'
+import { useParams } from "react-router-dom";
 import "../styles/forms.css";
 import { getPostById } from "../api/apiPost";
 
-const CreatePost = ({ onSave}) => {
+const CreatePost = ({ onSave }) => {
   const params = useParams();
   const { postId } = params;
 
@@ -18,18 +18,16 @@ const CreatePost = ({ onSave}) => {
 
   const [newPostState, setNewPostState] = useState(newPost);
 
-  const fetchingPostById = async () => {
-    const res = await getPostById(postId);
-    setNewPostState(res);
-  };
-
   useEffect(() => {
+    const fetchingPostById = async () => {
+      const res = await getPostById(postId);
+      setNewPostState(res);
+    };
+
     if (postId) {
       fetchingPostById();
-    } else {
-      setNewPostState(newPost);
     }
-  }, []);
+  }, [postId]);
 
   const handleOnChange = (event) => {
     const name = event.target.name;
@@ -86,14 +84,16 @@ const CreatePost = ({ onSave}) => {
             <button type="button">Cancel</button>
           </Link>
 
-          <button type="button" 
-          disabled={newPostState.title === '' || newPostState.body === ''}
-          onClick={() => {
-            if (newPostState?._id)
-              onSave(newPostState._id, newPostState)
-            else
-              onSave(newPostState);
-          }}> Save
+          <button
+            type="button"
+            disabled={newPostState.title === "" || newPostState.body === ""}
+            onClick={() => {
+              if (newPostState?._id) onSave(newPostState._id, newPostState);
+              else onSave(newPostState);
+            }}
+          >
+            {" "}
+            Save
           </button>
         </div>
       </form>
